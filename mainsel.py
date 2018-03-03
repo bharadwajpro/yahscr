@@ -1,3 +1,6 @@
+import sys
+sys.path.append("directory where python is installed/Yahoo-Finance-Web-Scraping")
+
 from bodysel import testforbse
 from bodysel import testfornse
 from bodysel import end_of_all
