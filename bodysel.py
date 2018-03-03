@@ -15,7 +15,7 @@ chrome_options = Options()
 # chrome_options.add_argument('--disk-cache-dir=C:/Users/Kashyap/AppData/Local/Google/Chrome/User Data/Default/Cache')
 #chrome_options.add_argument("user-data-dir=C:/Users/Kashyap/AppData/Local/Google/Chrome/User Data/dumdefault")
 
-driver = webdriver.Chrome('chromedriver이 설치된 경로')
+driver = webdriver.Chrome('directory where chromedriver is installed')
 # webdriver.PhantomJS('./phantomjs-2.1.1-windows/bin/phantomjs', service_args=['--load-images=no'])
 
 today_date = datetime.date.today().strftime("%Y%m%d")
@@ -77,37 +77,25 @@ def testfornse(p, q):
     print("Test %s" % test_number, "running")
     
     for name in nseNames[p:q]:
-        #DLF.NS
         company_name = name
         url_yahoo = "https://in.finance.yahoo.com/q?s=" + company_name
-        #//현재 노드로부터 문서상의 모든 노드를 조회
-        #*매칭되는 모든 ElementNode
-        #[@id id 속성 값이 어쩌구.
         url_xpath = '//*[@id="quote-header-info"]/div[3]/div/div/span[2]'
 
         driver.get(url_yahoo)
         pre_title = driver.title
         print(pre_title)
-        #DLF.NS 224.30 -1.95 -0.86% : DLF LIMITED - Yahoo Finance
         
         while pre_title == driver.title:
             time.sleep(1)
             break
         
         span_elem = driver.find_element_by_xpath(url_xpath)
-        #print("span_elem:"+str(span_elem) + "type : " +str(type(span_elem)))
         span_cls = span_elem.get_attribute("class")
-        #get_attribute로 받은 span_cls는 srt
-        #print("span_cls:"+str(span_cls))
 
         #span_cls == 'yfi-price-change-red'
         if search in span_cls:
             span_val = span_elem.get_attribute("innerHTML")
-            #<!-- react-text: 38 -->-1.95 (-0.86%)<!-- /react-text -->
-            #print("span_val:"+str(span_val))
             stock_val = re.sub('<!-- react-text: 38 -->|<!-- /react-text -->','',span_val)
-            #-1.95 (-0.86%)
-            #print("stock_val:"+str(stock_val))
             #list_span = list(span_val)
             #list_span.remove('(')
             #list_span.remove(')')
@@ -117,11 +105,7 @@ def testfornse(p, q):
             
         else:
             span_val = span_elem.get_attribute("innerHTML")
-            #+<!-- react-text: 38 -->-1.95 (-0.86%)<!-- /react-text -->
-            #print("span_val:"+str(span_val))
             stock_val = re.sub('<!-- react-text: 38 -->|<!-- react-text: 39 -->|<!-- /react-text -->','',span_val)
-            #-1.95 (-0.86%)
-            #print("stock_val:"+str(stock_val))
 
         with open('stocks_info.json', 'r') as fp:
             json_data = json.load(fp)

@@ -1,5 +1,5 @@
 import sys
-sys.path.append("파이썬이 설치된 경로/Yahoo-Finance-Web-Scraping")
+sys.path.append("directory where python is installed/Yahoo-Finance-Web-Scraping")
 
 from bodysel import testforbse
 from bodysel import testfornse
