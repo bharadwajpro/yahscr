@@ -1,3 +1,6 @@
+import sys
+sys.path.append("파이썬이 설치된 경로/Yahoo-Finance-Web-Scraping")
+
 from bodysel import testforbse
 from bodysel import testfornse
 from bodysel import end_of_all
